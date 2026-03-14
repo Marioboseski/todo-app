@@ -1,5 +1,6 @@
 import { useState } from "react";
 import validateRegister from "../../validation/validateRegister";
+import FormInput from "../ui/FormInput";
 
 type RegisterValues = {
   name: string,
@@ -22,16 +23,41 @@ const RegisterForm = () => {
   })
 
   const [errors, setErrors] = useState<Partial<RegisterValues>>({});
+  const [ touched, setTouched ] = useState<Partial<Record<keyof RegisterValues,boolean>>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setValues(prev => ({
-      ...prev, [name]: value
-    }))
+
+    const newValues = {
+      ...values, [name]: value
+    }
+
+    setValues(newValues);
+
+    const validationErrors = validateRegister(newValues);
+    setErrors(validationErrors);
+  }
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const field = e.target.name as keyof RegisterValues;
+
+    setTouched(prev => ({ ...prev, [field]: true }));
+
+    const validationErrors = validateRegister(values);
+    setErrors(validationErrors);
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    setTouched({
+      name: true,
+      lastname: true,
+      email: true,
+      password: true,
+      location: true,
+      phoneNumber: true,
+    })
 
     const validationErrors = validateRegister(values);
     setErrors(validationErrors);
@@ -41,47 +67,66 @@ const RegisterForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="text"
+
+        <FormInput
           name="name"
+          type="text"
           value={values.name}
+          placeholder="Enter name"
+          error={errors.name}
+          touched={touched.name}
           onChange={handleChange}
-          placeholder="Name" />
-          {errors.name && <p>{errors.name}</p>}
+          onBlur={handleBlur} />
 
-        <input type="text"
+          <FormInput
           name="lastname"
+          type="text"
           value={values.lastname}
+          placeholder="Enter lastname"
+          error={errors.lastname}
+          touched={touched.lastname}
           onChange={handleChange}
-          placeholder="Lastname" />
-          {errors.lastname && <p>{errors.lastname}</p>}
+          onBlur={handleBlur} />
 
-        <input type="email"
+          <FormInput
           name="email"
+          type="email"
           value={values.email}
+          placeholder="Enter email"
+          error={errors.email}
+          touched={touched.email}
           onChange={handleChange}
-          placeholder="Email" />
-          {errors.email && <p>{errors.email}</p>}
+          onBlur={handleBlur} />
 
-        <input type="password"
+          <FormInput
           name="password"
+          type="password"
           value={values.password}
+          placeholder="*******"
+          error={errors.password}
+          touched={touched.password}
           onChange={handleChange}
-          placeholder="*****" />
-          {errors.password && <p>{errors.password}</p>}
+          onBlur={handleBlur} />
 
-        <input type="text"
+          <FormInput
           name="location"
+          type="text"
           value={values.location}
+          placeholder="Enter location"
+          error={errors.location}
+          touched={touched.location}
           onChange={handleChange}
-          placeholder="Location" />
-          {errors.location && <p>{errors.location}</p>}
+          onBlur={handleBlur} />
 
-        <input type="text"
+          <FormInput
           name="phoneNumber"
+          type="text"
           value={values.phoneNumber}
+          placeholder="Phone Number"
+          error={errors.phoneNumber}
+          touched={touched.phoneNumber}
           onChange={handleChange}
-          placeholder="Phone Number" />
-          {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
+          onBlur={handleBlur} />
 
         <button type="submit">Register</button>
       </form>

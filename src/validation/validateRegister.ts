@@ -1,4 +1,4 @@
-import { requred, validateEmail, validatePassword } from "../utils/validators"
+import { requred, validateEmail, validatePassword } from "../utils/validators";
 
 type RegisterValues = {
   name: string,

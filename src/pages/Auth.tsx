@@ -10,7 +10,7 @@ const Auth = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center min-h-dvh">
       {isLogin ? <LoginForm /> : <RegisterForm />}
       <button onClick={toggleForm}>{isLogin ? "Don't have an account? Register"
       : "Already have an account? Login"}</button>
