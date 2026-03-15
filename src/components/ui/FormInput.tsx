@@ -21,17 +21,16 @@ const FormInput = ({
 }: FormInputProps) => {
 
   return (
-    <div>
-      <div>
-        <input type={type}
-          name={name}
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
-          onBlur={onBlur} />
-      </div>
-        { touched && error && (
-        <p>{error}</p>
+    <div className="flex flex-col justify-center w-full max-w-80">
+      <input type={type}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={onBlur}
+        className="form-inputs" />
+      {touched && error && (
+        <p className="text-xs text-red-500">{error}</p>
       )}
     </div>
   )

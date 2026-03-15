@@ -54,9 +54,11 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="flex justify-center items-center w-full p-2">
-      <form onSubmit={handleSubmit} className="flex flex-col justify-around items-center gap-2 p-2 border-2 border-gray-400 rounded-lg min-h-[400px] w-full">
+    <div className="form-layout">
+      <form onSubmit={handleSubmit} className="form-styles">
 
+        <h2 className="text-3xl">Welcome</h2>
+        <p className="text-lg">Todo - App </p>
         <FormInput 
         name="email"
         type="email"
@@ -77,7 +79,7 @@ const LoginForm = () => {
         onChange={handleChange}
         onBlur={handleBlur} />  
 
-        <button type="submit" className="border-2 border-gray-400 rounded-md w-full max-w-36">Login</button>
+        <button type="submit" className="form-buttons">Login</button>
       </form>
     </div>
   );

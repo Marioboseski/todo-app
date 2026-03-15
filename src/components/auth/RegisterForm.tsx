@@ -65,9 +65,11 @@ const RegisterForm = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="form-layout">
+      <form onSubmit={handleSubmit} className="form-styles min-h-[650px]">
 
+        <h2 className="text-3xl">Register</h2>
+        <p className="text-lg">Make Todo - App account</p>
         <FormInput
           name="name"
           type="text"
@@ -128,7 +130,7 @@ const RegisterForm = () => {
           onChange={handleChange}
           onBlur={handleBlur} />
 
-        <button type="submit">Register</button>
+        <button type="submit" className="form-buttons">Register</button>
       </form>
     </div>
   );
