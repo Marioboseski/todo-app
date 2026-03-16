@@ -1,6 +1,7 @@
 import { useState } from "react";
 import validateLogin from "../../validation/validateLogin";
 import FormInput from "../ui/FormInput";
+import { useNavigate } from "react-router-dom";
 
 type LoginValues = {
   email: string,
@@ -16,6 +17,7 @@ const LoginForm = () => {
 
   const [errors, setErrors] = useState<Partial<LoginValues>>({});
   const [ touched, setTouched ] = useState<Partial<Record<keyof LoginValues, boolean>>>({});
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -51,6 +53,7 @@ const LoginForm = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) return;
+    navigate("/todo-page");
   }
 
   return (

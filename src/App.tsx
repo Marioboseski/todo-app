@@ -1,10 +1,13 @@
 import Auth from "./pages/Auth";
+import TodoApp from "./components/todo/TodoApp";
+import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
-    <div>
-      <Auth />
-    </div>
+    <Routes>
+      <Route path="/" element={<Auth />} />
+      <Route path="/todo-page" element={<TodoApp />} />
+    </Routes>
   );
 }
 

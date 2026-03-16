@@ -1,6 +1,7 @@
 import { useState } from "react";
 import validateRegister from "../../validation/validateRegister";
 import FormInput from "../ui/FormInput";
+import { useNavigate } from "react-router-dom";
 
 type RegisterValues = {
   name: string,
@@ -24,6 +25,7 @@ const RegisterForm = () => {
 
   const [errors, setErrors] = useState<Partial<RegisterValues>>({});
   const [ touched, setTouched ] = useState<Partial<Record<keyof RegisterValues,boolean>>>({});
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,6 +64,7 @@ const RegisterForm = () => {
     const validationErrors = validateRegister(values);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
+    navigate("/todo-page");
   }
 
   return (
