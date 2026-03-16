@@ -15,7 +15,6 @@ const FormInput = ({
   value,
   placeholder,
   error,
-  touched,
   onChange,
   onBlur
 }: FormInputProps) => {
@@ -29,7 +28,7 @@ const FormInput = ({
         onChange={onChange}
         onBlur={onBlur}
         className="form-inputs" />
-      {touched && error && (
+      {error && (
         <p className="text-xs text-red-500">{error}</p>
       )}
     </div>
