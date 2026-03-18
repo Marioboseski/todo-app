@@ -8,13 +8,14 @@ type Props = {
 
 const TodoItem = ({ todo, onDelete, onToggle }: Props) => {
   return (
-    <div>
-      <p>{todo.text}</p>
-      <button onClick={() => onDelete(todo.id)}>Delete</button>
-      
+    <div className="flex justify-center items-center gap-2 border-b-2 border-gray-300">
+      <p className="text-lg">{todo.text}</p>
+
+      <button onClick={() => onDelete(todo.id)} className="text-lg">Delete</button>
+
       <input type="checkbox"
-      checked={todo.completed}
-      onChange={() => onToggle(todo.id)} />
+        checked={todo.completed}
+        onChange={() => onToggle(todo.id)} />
     </div>
   );
 }

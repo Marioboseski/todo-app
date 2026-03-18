@@ -14,6 +14,19 @@ const TodoApp = () => {
     const storedTodos = localStorage.getItem("todos");
     return storedTodos ? JSON.parse(storedTodos) : [];
   });
+  const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
+
+  const filteredTodos = todos.filter(todo => {
+    switch (filter) {
+      case "active":
+        return !todo.completed
+
+      case "completed":
+        return todo.completed
+
+      default: return true
+    }
+  })
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos))
@@ -34,16 +47,38 @@ const TodoApp = () => {
 
   const toggleTodo = (id: number) => {
     setTodos(prev => prev.map(todo => (
-      todo.id === id ? {...todo, completed: !todo.completed}
-      : todo
+      todo.id === id ? { ...todo, completed: !todo.completed }
+        : todo
     )));
   }
 
   return (
-    <div>
-      <h1>Todo App</h1>
-      <TodoForm onAdd={addTodo} />
-      <TodoList todos={todos} onDelete={deleteTodo} onToggle={toggleTodo}  />
+    <div className="flex justify-center items-center p-2 min-h-dvh">
+      <div className="flex flex-col justify-evenly items-center gap-3 w-full min-h-[600px] border-2 border-blue-300">
+        <h1 className="text-2xl">Todo App</h1>
+        <div className="flex flex-col justify-center items-center gap-3">
+          <TodoForm onAdd={addTodo} />
+          <div className="flex gap-3">
+
+            <button onClick={() => setFilter("all")}
+              style={{ background: filter === "all" ? "yellow" : "transparent" }}
+            >All
+            </button>
+
+            <button onClick={() => setFilter("active")}
+              style={{ background: filter === "active" ? "red" : "transparent" }}
+            >Active
+            </button>
+
+            <button onClick={() => setFilter("completed")}
+              style={{ background: filter === "completed" ? "green" : "transparent" }}
+            >Completed
+            </button>
+
+          </div>
+        </div>
+        <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} />
+      </div>
     </div>
   );
 }

@@ -2,34 +2,33 @@ import { useState } from "react";
 
 type Props = {
   onAdd: (text: string) => void;
-} 
+}
 
 const TodoForm = ({ onAdd }: Props) => {
-  const [ task, setTask ] = useState("");
+  const [task, setTask] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTask(e.target.value);
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if(!task.trim()) return;
+    if (!task.trim()) return;
 
     onAdd(task);
     setTask("");
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text"
+    <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-3">
+      <input type="text"
         value={task}
         onChange={handleChange}
-        placeholder="Task" />
-        <button type="submit">Add task</button>
-      </form>
-    </div>
+        placeholder="Task"
+        className="form-inputs" />
+      <button type="submit" className="form-buttons">Add task</button>
+    </form>
   );
 }
 
