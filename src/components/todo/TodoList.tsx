@@ -10,7 +10,7 @@ type Props = {
 const TodoList = ({ todos, onDelete, onToggle }: Props) => {
   return (
     <div>
-      <ul>
+      <ul className="flex flex-col ">
         {todos.map(todo => (
           <TodoItem key={todo.id} todo={todo} onDelete={onDelete} onToggle={onToggle} />
         ))}
