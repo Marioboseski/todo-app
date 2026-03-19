@@ -58,6 +58,12 @@ const TodoApp = () => {
     setTodos(prev => prev.filter(todo => !todo.completed))
   }
 
+  const editTodo = (id: number, newText: string) => {
+    setTodos(prev => prev.map(todo => todo.id === id
+      ? {...todo, text:newText} : todo
+    ));
+  }
+
   return (
     <div className="flex justify-center items-center p-2 min-h-dvh">
       <div className="flex flex-col justify-evenly items-center gap-3 w-full min-h-[600px] border-2 border-blue-300">
@@ -88,7 +94,7 @@ const TodoApp = () => {
             <button onClick={clearCompleted}>Clear completed</button>
           )}
         </div>
-        <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} />
+        <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} onEdit={editTodo} />
       </div>
     </div>
   );
