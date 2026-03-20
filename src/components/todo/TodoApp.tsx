@@ -64,6 +64,12 @@ const TodoApp = () => {
     ));
   }
 
+  const buttonClass = (type: string) => {
+    return `${
+      filter === type ? "bg-gray-200 border border-gray-400" : "bg-transparent border-none"
+    }`;
+  };
+
   return (
     <div className="flex justify-center items-center p-2 min-h-dvh">
       <div className="flex flex-col justify-evenly items-center gap-3 w-full min-h-[600px] border-2 border-blue-300">
@@ -73,21 +79,21 @@ const TodoApp = () => {
           <div className="flex gap-3">
 
             <button onClick={() => setFilter("all")}
-              style={{ background: filter === "all" ? "yellow" : "transparent" }}
+              className={buttonClass("all")} 
             >All
             </button>
 
             <button onClick={() => setFilter("active")}
-              style={{ background: filter === "active" ? "red" : "transparent" }}
+              className={buttonClass("active")}
             >Active
             </button>
 
             <button onClick={() => setFilter("completed")}
-              style={{ background: filter === "completed" ? "green" : "transparent" }}
+              className={buttonClass("completed")}
             >Completed
             </button>
 
-            <p>{activeCount} items left</p>
+            <p>{activeCount}</p>
 
           </div>
           {todos.some(todo => todo.completed) && (
