@@ -3,9 +3,9 @@ import type { Todo } from "./TodoApp";
 
 type Props = {
   todos: Todo[]
-  onDelete: (id: number) => void
-  onToggle: (id: number) => void
-  onEdit: (id: number, text: string) => void
+  onDelete: (id: string) => void
+  onToggle: (id: string) => void
+  onEdit: (id: string, text: string) => void
 }
 
 const TodoList = ({ todos, onDelete, onToggle, onEdit }: Props) => {

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import type { Todo } from "./TodoApp";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 type Props = {
   todo: Todo
-  onDelete: (id: number) => void
-  onToggle: (id: number) => void
-  onEdit: (id: number, text: string) => void
+  onDelete: (id: string) => void
+  onToggle: (id: string) => void
+  onEdit: (id: string, text: string) => void
 }
 
 const TodoItem = ({ todo, onDelete, onToggle, onEdit }: Props) => {
@@ -20,8 +22,22 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }: Props) => {
     setIsEditing(false);
   };
 
+  const {
+    attributes, listeners, setNodeRef,
+    transform, transition,
+  } = useSortable({ id: todo.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  }
+
   return (
-    <div className="flex justify-center items-center gap-3 border-b-2 border-gray-300">
+    <div ref={setNodeRef} style={style} className="flex justify-center items-center gap-3 border-b-2 border-gray-300">
+
+      <span {...attributes} {...listeners} style={{ cursor: "grab", touchAction: "none" }}>
+    ☰
+  </span>
 
       {isEditing ? (
         <input value={editText}

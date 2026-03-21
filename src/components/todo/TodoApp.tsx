@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import type { DragEndEvent } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
+import { v4 as uuidv4 } from "uuid";
 
 export type Todo = {
-  id: number,
+  id: string,
   text: string,
   completed: boolean,
 }
@@ -36,18 +40,18 @@ const TodoApp = () => {
 
   const addTodo = (text: string) => {
     const newTodo = {
-      id: Date.now(),
+      id: uuidv4(),
       text,
       completed: false,
     }
     setTodos(prev => [...prev, newTodo]);
   }
 
-  const deleteTodo = (id: number) => {
+  const deleteTodo = (id: string) => {
     setTodos(prev => prev.filter(todo => todo.id !== id))
   }
 
-  const toggleTodo = (id: number) => {
+  const toggleTodo = (id: string) => {
     setTodos(prev => prev.map(todo => (
       todo.id === id ? { ...todo, completed: !todo.completed }
         : todo
@@ -58,17 +62,37 @@ const TodoApp = () => {
     setTodos(prev => prev.filter(todo => !todo.completed))
   }
 
-  const editTodo = (id: number, newText: string) => {
+  const editTodo = (id: string, newText: string) => {
     setTodos(prev => prev.map(todo => todo.id === id
-      ? {...todo, text:newText} : todo
+      ? { ...todo, text: newText } : todo
     ));
   }
 
   const buttonClass = (type: string) => {
-    return `${
-      filter === type ? "bg-gray-200 border border-gray-400" : "bg-transparent border-none"
-    }`;
+    return `${filter === type ? "bg-gray-200 border border-gray-400" : "bg-transparent border-none"
+      }`;
   };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    setTodos(prev => {
+      const oldIndex = prev.findIndex(todo => todo.id === active.id);
+      const newIndex = prev.findIndex(todo => todo.id === over.id);
+
+      return arrayMove(prev, oldIndex, newIndex);
+    });
+  }
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5
+      }
+    })
+  );
 
   return (
     <div className="flex justify-center items-center p-2 min-h-dvh">
@@ -79,7 +103,7 @@ const TodoApp = () => {
           <div className="flex gap-3">
 
             <button onClick={() => setFilter("all")}
-              className={buttonClass("all")} 
+              className={buttonClass("all")}
             >All
             </button>
 
@@ -100,7 +124,11 @@ const TodoApp = () => {
             <button onClick={clearCompleted}>Clear completed</button>
           )}
         </div>
-        <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} onEdit={editTodo} />
+        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} sensors={sensors}>
+          <SortableContext items={filteredTodos.map(todo => todo.id)} strategy={verticalListSortingStrategy}>
+            <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} onEdit={editTodo} />
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   );
