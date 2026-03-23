@@ -5,6 +5,7 @@ import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from 
 import type { DragEndEvent } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
 
 export type Todo = {
   id: string,
@@ -97,6 +98,7 @@ const TodoApp = () => {
   return (
     <div className="flex justify-center items-center p-2 min-h-dvh">
       <div className="flex flex-col justify-evenly items-center gap-3 w-full min-h-[600px] border-2 border-blue-300">
+        <Link to={"/search-page"}>Search</Link>        
         <h1 className="text-2xl">Todo App</h1>
         <div className="flex flex-col justify-center items-center gap-3">
           <TodoForm onAdd={addTodo} />
