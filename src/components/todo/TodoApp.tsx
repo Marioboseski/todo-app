@@ -4,8 +4,8 @@ import TodoList from "./TodoList";
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import type { DragEndEvent } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
-import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
+import { useTodoStore } from "../../store/todoStore";
 
 export type Todo = {
   id: string,
@@ -15,10 +15,8 @@ export type Todo = {
 
 const TodoApp = () => {
 
-  const [todos, setTodos] = useState<Todo[]>(() => {
-    const storedTodos = localStorage.getItem("todos");
-    return storedTodos ? JSON.parse(storedTodos) : [];
-  });
+  const { todos, addTodo, deleteTodo, toggleTodo, editTodo, clearCompleted, setTodos } = useTodoStore();
+
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
 
   const filteredTodos = todos.filter(todo => {
@@ -39,36 +37,6 @@ const TodoApp = () => {
     localStorage.setItem("todos", JSON.stringify(todos))
   }, [todos]);
 
-  const addTodo = (text: string) => {
-    const newTodo = {
-      id: uuidv4(),
-      text,
-      completed: false,
-    }
-    setTodos(prev => [...prev, newTodo]);
-  }
-
-  const deleteTodo = (id: string) => {
-    setTodos(prev => prev.filter(todo => todo.id !== id))
-  }
-
-  const toggleTodo = (id: string) => {
-    setTodos(prev => prev.map(todo => (
-      todo.id === id ? { ...todo, completed: !todo.completed }
-        : todo
-    )));
-  }
-
-  const clearCompleted = () => {
-    setTodos(prev => prev.filter(todo => !todo.completed))
-  }
-
-  const editTodo = (id: string, newText: string) => {
-    setTodos(prev => prev.map(todo => todo.id === id
-      ? { ...todo, text: newText } : todo
-    ));
-  }
-
   const buttonClass = (type: string) => {
     return `${filter === type ? "bg-gray-200 border border-gray-400" : "bg-transparent border-none"
       }`;
@@ -79,12 +47,10 @@ const TodoApp = () => {
 
     if (!over || active.id === over.id) return;
 
-    setTodos(prev => {
-      const oldIndex = prev.findIndex(todo => todo.id === active.id);
-      const newIndex = prev.findIndex(todo => todo.id === over.id);
-
-      return arrayMove(prev, oldIndex, newIndex);
-    });
+    const oldIndex = todos.findIndex(todo => todo.id === active.id);
+    const newIndex = todos.findIndex(todo => todo.id === over.id);
+    const newTodos = arrayMove(todos, oldIndex, newIndex);
+    setTodos(newTodos);
   }
 
   const sensors = useSensors(
@@ -98,7 +64,7 @@ const TodoApp = () => {
   return (
     <div className="flex justify-center items-center p-2 min-h-dvh">
       <div className="flex flex-col justify-evenly items-center gap-3 w-full min-h-[600px] border-2 border-blue-300">
-        <Link to={"/search-page"}>Search</Link>        
+        <Link to={"/search-page"}>Search</Link>
         <h1 className="text-2xl">Todo App</h1>
         <div className="flex flex-col justify-center items-center gap-3">
           <TodoForm onAdd={addTodo} />
