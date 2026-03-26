@@ -92,11 +92,13 @@ const TodoApp = () => {
             <button onClick={clearCompleted}>Clear completed</button>
           )}
         </div>
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} sensors={sensors}>
-          <SortableContext items={filteredTodos.map(todo => todo.id)} strategy={verticalListSortingStrategy}>
-            <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} onEdit={editTodo} />
-          </SortableContext>
-        </DndContext>
+        <div className="min-h-[250px]">
+          <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} sensors={sensors}>
+            <SortableContext items={filteredTodos.map(todo => todo.id)} strategy={verticalListSortingStrategy}>
+              <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} onEdit={editTodo} />
+            </SortableContext>
+          </DndContext>
+        </div>
       </div>
     </div>
   );

@@ -13,6 +13,6 @@
     @apply flex justify-center items-center w-full p-2
   }
   .form-styles {
-    @apply flex flex-col justify-evenly items-center p-2 border-2 border-blue-500 rounded-lg min-h-[450px] w-full
+    @apply flex flex-col justify-evenly items-center p-2 border-2 border-blue-500 rounded-lg min-h-[450px] w-full max-w-lg
   }
 }
