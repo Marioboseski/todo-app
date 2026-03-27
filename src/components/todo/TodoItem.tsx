@@ -34,7 +34,7 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }: Props) => {
   }
 
   return (
-    <div ref={setNodeRef} style={style} className="flex justify-center items-center gap-3 border-b-2 border-gray-300">
+    <div ref={setNodeRef} style={style} className="flex justify-around items-center text-center gap-3 border-b-2 border-gray-300">
 
       <Hand {...attributes} {...listeners} style={{ cursor: "grab", touchAction: "none" }}/>  
       

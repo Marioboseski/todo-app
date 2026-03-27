@@ -11,10 +11,14 @@ type Props = {
 const TodoList = ({ todos, onDelete, onToggle, onEdit }: Props) => {
   return (
     <div>
-      <ul className="flex flex-col ">
-        {todos.map(todo => (
-          <TodoItem key={todo.id} todo={todo} onDelete={onDelete} onToggle={onToggle} onEdit={onEdit} />
-        ))}
+      <ul className="flex flex-col gap-1 w-full max-w-[600px]">
+        {todos.length === 0 ? (
+          <p>No tasks found</p>
+        ) : (
+          todos.map(todo => (
+            <TodoItem key={todo.id} todo={todo} onDelete={onDelete} onToggle={onToggle} onEdit={onEdit} />
+          ))
+        )}
       </ul>
     </div>
   );

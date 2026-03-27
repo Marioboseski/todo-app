@@ -62,9 +62,11 @@ const TodoApp = () => {
   );
 
   return (
-    <div className="flex justify-center items-center p-2 min-h-dvh">
-      <div className="flex flex-col justify-evenly items-center gap-3 w-full min-h-[600px] border-2 border-blue-300">
-        <Link to={"/search-page"}>Search</Link>
+    <div className="flex justify-center items-center text-center p-2 min-h-dvh">
+      <div className="flex flex-col justify-evenly p-3 w-full max-w-lg min-h-[600px] border-2 border-blue-300">
+        <div className="flex justify-end">
+          <Link to={"/search-page"} className="border border-black bg-gray-200 max-w-20 p-1 text-lg rounded-lg">Search</Link>
+        </div>
         <h1 className="text-2xl">Todo App</h1>
         <div className="flex flex-col justify-center items-center gap-3">
           <TodoForm onAdd={addTodo} />
