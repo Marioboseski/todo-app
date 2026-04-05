@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer components {
+  .container {
+    @apply w-full max-w-[700px] mx-auto p-3
+  }
   .form-inputs {
     @apply border-2 border-blue-500 rounded-md p-1 text-lg
   }

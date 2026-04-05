@@ -48,29 +48,31 @@ const SearchTodosPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="flex flex-col text-center gap-3 p-3 w-full">
-        <Link to={"/todo-page"}><ArrowLeft /></Link>        
-        <h2 className="text-3xl">Search Tasks</h2>
-        <input type="text"
-          value={query}
-          onChange={handleChange}
-          placeholder="Search Task"
-          className="border border-black/80 p-1 text-lg w-full max-w-36 rounded-md" />
+    <div className="container">
+      <div className="flex flex-col p-3 border-2 border-gray-400">
+        <Link to={"/todo-page"}><ArrowLeft /></Link>
+        <div className="flex flex-col text-center gap-3 p-3 w-full md:items-center">
+          <h2 className="text-3xl">Search Tasks</h2>
+          <input type="text"
+            value={query}
+            onChange={handleChange}
+            placeholder="Search Task"
+            className="border border-black/80 p-1 text-lg w-full max-w-36 rounded-md" />
 
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} sensors={sensors}>
-          <SortableContext
-            items={filteredTodos.map(t => t.id)}
-            strategy={verticalListSortingStrategy}
-          >
-            <TodoList
-              todos={filteredTodos}
-              onDelete={deleteTodo}
-              onToggle={toggleTodo}
-              onEdit={editTodo}
-            />
-          </SortableContext>
-        </DndContext>
+          <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} sensors={sensors}>
+            <SortableContext
+              items={filteredTodos.map(t => t.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              <TodoList
+                todos={filteredTodos}
+                onDelete={deleteTodo}
+                onToggle={toggleTodo}
+                onEdit={editTodo}
+              />
+            </SortableContext>
+          </DndContext>
+        </div>
       </div>
     </div>
   );

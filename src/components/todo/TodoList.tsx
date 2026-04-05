@@ -10,8 +10,8 @@ type Props = {
 
 const TodoList = ({ todos, onDelete, onToggle, onEdit }: Props) => {
   return (
-    <div>
-      <ul className="flex flex-col gap-1 w-full max-w-[600px]">
+    <div className="w-full md:max-w-lg">
+      <ul className="flex flex-col gap-1 w-full max-w-lg">
         {todos.length === 0 ? (
           <p>No tasks found</p>
         ) : (
