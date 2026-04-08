@@ -61,25 +61,25 @@ const TodoApp = () => {
     <div className="flex justify-center items-center text-center p-2 min-h-dvh">
       <div className="flex flex-col justify-evenly p-3 w-full max-w-lg min-h-[600px] border-2 border-blue-300 rounded-lg">
         <div className="flex justify-end">
-          <Link to={"/search-page"} className="border border-black bg-gray-200 max-w-20 p-1 text-lg rounded-lg">Search</Link>
+          <Link to={"/search-page"} className="border border-black bg-gray-200 max-w-20 p-1 text-lg rounded-lg hover:bg-gray-300">Search</Link>
         </div>
         <h1 className="text-2xl">Todo App</h1>
         <div className="flex flex-col justify-center items-center gap-3">
           <TodoForm onAdd={addTodo} />
-          <div className="flex gap-3">
+          <div className="flex justify-center items-center gap-3 w-full">
 
             <button onClick={() => setFilter("all")}
-              className={buttonClass("all")}
+              className={`flex-1 p-2 rounded-md ${buttonClass("all")}`}
             >All
             </button>
 
             <button onClick={() => setFilter("active")}
-              className={buttonClass("active")}
+              className={`flex-1 p-2 rounded-md ${buttonClass("active")}`}
             >Active
             </button>
 
             <button onClick={() => setFilter("completed")}
-              className={buttonClass("completed")}
+              className={`flex-1 p-2 rounded-md ${buttonClass("completed")}`}
             >Completed
             </button>
 

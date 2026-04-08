@@ -19,10 +19,10 @@ export const validateEmail = (email: string) => {
 export const validatePassword = (password: string) => {
   if(!password) {
     return "Password is requred";
-  }
-
-  if(password.length < 6) {
+  } else if(password.length < 6) {
     return "Password must be atleast 6 characters";
+  } else if (!/[A-Z]/.test(password) || (!/[!@#$%^&*(),.?":{}|<>]/.test(password))) {
+    return "Atleast one upper case and one special character";
   }
   return "";
 }

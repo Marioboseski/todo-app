@@ -10,7 +10,7 @@
     @apply border-2 border-blue-500 rounded-md p-1 text-lg
   }
   .form-buttons {
-    @apply border-blue-500 border-2 rounded-md w-full max-w-32 p-1
+    @apply border-blue-500 border-2 rounded-md w-full max-w-32 p-1 hover:bg-blue-500 hover:text-white
   }
   .form-layout {
     @apply flex justify-center items-center w-full p-2
