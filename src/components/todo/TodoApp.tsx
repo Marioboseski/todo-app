@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
@@ -32,10 +32,6 @@ const TodoApp = () => {
   });
 
   const activeCount = todos.filter(todo => !todo.completed).length;
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos))
-  }, [todos]);
 
   const buttonClass = (type: string) => {
     return `${filter === type ? "bg-gray-200 border border-gray-400" : "bg-transparent border-none"
