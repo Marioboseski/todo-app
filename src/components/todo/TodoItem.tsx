@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { Todo } from "./TodoApp";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -37,6 +37,14 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }: Props) => {
     transition
   }
 
+  const inputFocus = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if(isEditing) {
+      inputFocus.current?.focus
+    }
+  },[isEditing]);
+
   return (
     <div ref={setNodeRef} style={style} className="flex justify-around items-center text-center gap-3 border-b-2 border-gray-300">
 
@@ -46,6 +54,7 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }: Props) => {
         <input value={editText}
           onChange={(e) => setEditText(e.target.value)}
           onBlur={handleSubmit}
+          ref={inputFocus}
           onKeyDown={(e) => {
             if (e.key === "Enter") handleSubmit();
             if (e.key === "Escape") {
