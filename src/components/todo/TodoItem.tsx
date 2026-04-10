@@ -17,9 +17,13 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }: Props) => {
   const [editText, setEditText] = useState(todo.text);
 
   const handleSubmit = () => {
-    if (!editText.trim()) return;
+    const edited = editText.trim();
 
-    onEdit(todo.id, editText);
+    if(!edited) return;
+
+    if(edited !== todo.text) {
+      onEdit(todo.id, edited)  
+    }
     setIsEditing(false);
   };
 
@@ -41,6 +45,7 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }: Props) => {
       {isEditing ? (
         <input value={editText}
           onChange={(e) => setEditText(e.target.value)}
+          onBlur={handleSubmit}
           onKeyDown={(e) => {
             if (e.key === "Enter") handleSubmit();
             if (e.key === "Escape") {
