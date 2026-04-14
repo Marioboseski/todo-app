@@ -1,20 +1,22 @@
-## Complex Todo - App
+# Complex Todo - App
 
-This is a modern Todo app that allows users to menage thier tasks.
-CRUD application with resposive design, mainly focused on clean architecture, scalable and reusable code. Clean and interactive UI/UX
-fully responsive and works on any device.
+This is a modern Todo app that allows users to menage and filter thier tasks. CRUD application with resposive design, mainly focused on clean architecture, scalable and reusable code. Clean and interactive UI/UX, fully responsive and works on any device.
 
-## Features 
+# Features 
 
-  Login/Register forms with validation
+  * Login/Register forms with validation
 
-  Add, delete, edit task
+  * Add, delete, edit task
 
-  Mark as completed task
+  * Mark as completed task
 
-  Drag/Drop task
+  * Drag/Drop task
 
-  Search task (with debounce) 
+  * Search task (with debounce) 
+
+  * Responsive design
+
+  * Filter tasks 
 
   # Tech Stack
 
