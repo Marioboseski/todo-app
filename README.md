@@ -15,3 +15,26 @@ fully responsive and works on any device.
   Drag/Drop task
 
   Search task (with debounce) 
+
+  # Tech Stack
+
+  * JavaScript
+
+  * TypeScript
+
+  * React
+
+  * Tailwind CSS
+
+  * HTML5
+
+  * CSS3 
+
+  # Live Link
+
+  https://marioboseski.github.io/todo-app/
+
+  # Developer
+
+  Mario Boseski 
+
